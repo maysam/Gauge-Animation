@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aqua Gauge - maysam</title>
+    <script src="AquaGauge.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+function go(gauge, value,target, direction, decimal, rounds) {
+	if(typeof(direction) == 'undefined')
+		direction = 1;
+	if(typeof(decimal) == 'undefined')
+		decimal = 0;
+	if(typeof(rounds) == 'undefined')
+		rounds = 0;
+
+	gauge.refresh(value.toFixed(decimal));
+	if(direction>0)
+	{
+		if(value>100)
+		{
+			direction = -direction;
+			if(rounds<=0)
+			{
+				direction /= 3;
+			}
+			else
+			{
+				rounds--;
+			}
+		}
+	}
+	else
+	{
+		if(rounds<=0)
+		{
+			if(value<target)
+			{
+				gauge.refresh(target);
+				return;
+			}
+		}
+		else
+		{
+			if(value<0)
+			{
+				direction = -direction;
+				rounds--;
+			}
+		}
+	}
+	value += direction;
+	setTimeout(function(){go(gauge, value, target, direction, decimal, rounds);}, 3);
+}
+ function showGauge() {
+            var aGauge = new AquaGauge('cauge_00');
+            aGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            aGauge.props.minValue = 0;
+            aGauge.props.maxValue = 100;
+            aGauge.props.noOfDivisions = 5;
+            aGauge.props.noOfSubDivisions = 4;
+            aGauge.props.showMinorScaleValue = true;
+            aGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            aGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            aGauge.props.dialTitle = 'name';
+            aGauge.props.dialTitleTextFont = 'bold 24px Trebuchet MS'
+            aGauge.props.dialTitleTextColor = '#000'
+            aGauge.props.dialSubTitle = 'Score';
+            aGauge.props.dialSubTitleTextFont = '15px Trebuchet MS'
+            aGauge.props.dialSubTitleTextColor = '#666'
+            aGauge.props.dialValueTextFont = '26px Arial Black'
+            aGauge.props.dialValueTextColor = '#333'
+            aGauge.props.majorDivisionColor = '#666'
+            aGauge.props.minorDivisionColor = '#999'
+            aGauge.props.dialScaleFont = 'bold 15px Trebuchet MS'
+            aGauge.props.dialScaleTextColor = '#333'
+            aGauge.props.dialSubScaleFont = 'bold 10px Trebuchet MS'
+            aGauge.props.dialSubScaleTextColor = '#666'
+            aGauge.props.rangeSegments[0].start = '0'
+            aGauge.props.rangeSegments[0].end = '33'
+            aGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            aGauge.props.rangeSegments[1].start = '33'
+            aGauge.props.rangeSegments[1].end = '66'
+            aGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            aGauge.props.rangeSegments[2].start = '66'
+            aGauge.props.rangeSegments[2].end = '100'
+            aGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            aGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            aGauge.props.rimWidth = '10'
+//            aGauge.refresh(35.75);
+			aGauge.refresh(0);
+
+            var bGauge = new AquaGauge('cauge_01');
+            bGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            bGauge.props.minValue = 0;
+            bGauge.props.maxValue = 100;
+            bGauge.props.noOfDivisions = 5;
+            bGauge.props.noOfSubDivisions = 4;
+            bGauge.props.showMinorScaleValue = true;
+            bGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            bGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            bGauge.props.dialTitle = 'name 2';
+            bGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            bGauge.props.dialTitleTextColor = '#000'
+            bGauge.props.dialSubTitle = 'Score';
+            bGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            bGauge.props.dialSubTitleTextColor = '#666'
+            bGauge.props.dialValueTextFont = '12px Arial Black'
+            bGauge.props.dialValueTextColor = '#333'
+            bGauge.props.majorDivisionColor = '#666'
+            bGauge.props.minorDivisionColor = '#999'
+            bGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            bGauge.props.dialScaleTextColor = '#333'
+            bGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            bGauge.props.dialSubScaleTextColor = '#666'
+            bGauge.props.showMinorScaleValue = 0;
+            bGauge.props.showGlossiness = 1;
+            bGauge.props.rangeSegments[0].start = '0'
+            bGauge.props.rangeSegments[0].end = '33'
+            bGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            bGauge.props.rangeSegments[1].start = '33'
+            bGauge.props.rangeSegments[1].end = '66'
+            bGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            bGauge.props.rangeSegments[2].start = '66'
+            bGauge.props.rangeSegments[2].end = '100'
+            bGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            bGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            bGauge.props.rimWidth = '4'
+//            bGauge.refresh(24);
+			bGauge.refresh(0);
+
+            var cGauge = new AquaGauge('cauge_02');
+            cGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            cGauge.props.minValue = 0;
+            cGauge.props.maxValue = 100;
+            cGauge.props.noOfDivisions = 5;
+            cGauge.props.noOfSubDivisions = 4;
+            cGauge.props.showMinorScaleValue = true;
+            cGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            cGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            cGauge.props.dialTitle = 'name 3';
+            cGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            cGauge.props.dialTitleTextColor = '#000'
+            cGauge.props.dialSubTitle = 'Score';
+            cGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            cGauge.props.dialSubTitleTextColor = '#666'
+            cGauge.props.dialValueTextFont = '12px Arial Black'
+            cGauge.props.dialValueTextColor = '#333'
+            cGauge.props.majorDivisionColor = '#666'
+            cGauge.props.minorDivisionColor = '#999'
+            cGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            cGauge.props.dialScaleTextColor = '#333'
+            cGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            cGauge.props.dialSubScaleTextColor = '#666'
+            cGauge.props.showMinorScaleValue = 0;
+            cGauge.props.showGlossiness = 1;
+            cGauge.props.rangeSegments[0].start = '0'
+            cGauge.props.rangeSegments[0].end = '33'
+            cGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            cGauge.props.rangeSegments[1].start = '33'
+            cGauge.props.rangeSegments[1].end = '66'
+            cGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            cGauge.props.rangeSegments[2].start = '66'
+            cGauge.props.rangeSegments[2].end = '100'
+            cGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            cGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            cGauge.props.rimWidth = '4'
+//            cGauge.refresh(12);
+			cGauge.refresh(0);
+
+            var dGauge = new AquaGauge('cauge_03');
+            dGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            dGauge.props.minValue = 0;
+            dGauge.props.maxValue = 100;
+            dGauge.props.noOfDivisions = 5;
+            dGauge.props.noOfSubDivisions = 4;
+            dGauge.props.showMinorScaleValue = true;
+            dGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            dGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            dGauge.props.dialTitle = 'name 4';
+            dGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            dGauge.props.dialTitleTextColor = '#000'
+            dGauge.props.dialSubTitle = 'Score';
+            dGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            dGauge.props.dialSubTitleTextColor = '#666'
+            dGauge.props.dialValueTextFont = '12px Arial Black'
+            dGauge.props.dialValueTextColor = '#333'
+            dGauge.props.majorDivisionColor = '#666'
+            dGauge.props.minorDivisionColor = '#999'
+            dGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            dGauge.props.dialScaleTextColor = '#333'
+            dGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            dGauge.props.dialSubScaleTextColor = '#666'
+            dGauge.props.showMinorScaleValue = 0;
+            dGauge.props.showGlossiness = 1;
+            dGauge.props.rangeSegments[0].start = '0'
+            dGauge.props.rangeSegments[0].end = '33'
+            dGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            dGauge.props.rangeSegments[1].start = '33'
+            dGauge.props.rangeSegments[1].end = '66'
+            dGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            dGauge.props.rangeSegments[2].start = '66'
+            dGauge.props.rangeSegments[2].end = '100'
+            dGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            dGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            dGauge.props.rimWidth = '4'
+//            dGauge.refresh(22);
+			dGauge.refresh(0);
+
+            var eGauge = new AquaGauge('cauge_04');
+            eGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            eGauge.props.minValue = 0;
+            eGauge.props.maxValue = 100;
+            eGauge.props.noOfDivisions = 5;
+            eGauge.props.noOfSubDivisions = 4;
+            eGauge.props.showMinorScaleValue = true;
+            eGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            eGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            eGauge.props.dialTitle = 'name 5';
+            eGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            eGauge.props.dialTitleTextColor = '#000'
+            eGauge.props.dialSubTitle = 'Score';
+            eGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            eGauge.props.dialSubTitleTextColor = '#666'
+            eGauge.props.dialValueTextFont = '12px Arial Black'
+            eGauge.props.dialValueTextColor = '#333'
+            eGauge.props.majorDivisionColor = '#666'
+            eGauge.props.minorDivisionColor = '#999'
+            eGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            eGauge.props.dialScaleTextColor = '#333'
+            eGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            eGauge.props.dialSubScaleTextColor = '#666'
+            eGauge.props.showMinorScaleValue = 0;
+            eGauge.props.showGlossiness = 1;
+            eGauge.props.rangeSegments[0].start = '0'
+            eGauge.props.rangeSegments[0].end = '33'
+            eGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            eGauge.props.rangeSegments[1].start = '33'
+            eGauge.props.rangeSegments[1].end = '66'
+            eGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            eGauge.props.rangeSegments[2].start = '66'
+            eGauge.props.rangeSegments[2].end = '100'
+            eGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            eGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            eGauge.props.rimWidth = '4'
+//            eGauge.refresh(80);
+			eGauge.refresh(0);
+
+            var fGauge = new AquaGauge('cauge_05');
+            fGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            fGauge.props.minValue = 0;
+            fGauge.props.maxValue = 100;
+            fGauge.props.noOfDivisions = 5;
+            fGauge.props.noOfSubDivisions = 4;
+            fGauge.props.showMinorScaleValue = true;
+            fGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            fGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            fGauge.props.dialTitle = 'name 6';
+            fGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            fGauge.props.dialTitleTextColor = '#000'
+            fGauge.props.dialSubTitle = 'Score';
+            fGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            fGauge.props.dialSubTitleTextColor = '#666'
+            fGauge.props.dialValueTextFont = '12px Arial Black'
+            fGauge.props.dialValueTextColor = '#333'
+            fGauge.props.majorDivisionColor = '#666'
+            fGauge.props.minorDivisionColor = '#999'
+            fGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            fGauge.props.dialScaleTextColor = '#333'
+            fGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            fGauge.props.dialSubScaleTextColor = '#666'
+            fGauge.props.showMinorScaleValue = 0;
+            fGauge.props.showGlossiness = 1;
+            fGauge.props.rangeSegments[0].start = '0'
+            fGauge.props.rangeSegments[0].end = '33'
+            fGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            fGauge.props.rangeSegments[1].start = '33'
+            fGauge.props.rangeSegments[1].end = '66'
+            fGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            fGauge.props.rangeSegments[2].start = '66'
+            fGauge.props.rangeSegments[2].end = '100'
+            fGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            fGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            fGauge.props.rimWidth = '4'
+//            fGauge.refresh(76);
+			fGauge.refresh(0);
+
+            var gGauge = new AquaGauge('cauge_06');
+            gGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            gGauge.props.minValue = 0;
+            gGauge.props.maxValue = 100;
+            gGauge.props.noOfDivisions = 5;
+            gGauge.props.noOfSubDivisions = 4;
+            gGauge.props.showMinorScaleValue = true;
+            gGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            gGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            gGauge.props.dialTitle = 'name 7';
+            gGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            gGauge.props.dialTitleTextColor = '#000'
+            gGauge.props.dialSubTitle = 'Score';
+            gGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            gGauge.props.dialSubTitleTextColor = '#666'
+            gGauge.props.dialValueTextFont = '12px Arial Black'
+            gGauge.props.dialValueTextColor = '#333'
+            gGauge.props.majorDivisionColor = '#666'
+            gGauge.props.minorDivisionColor = '#999'
+            gGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            gGauge.props.dialScaleTextColor = '#333'
+            gGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            gGauge.props.dialSubScaleTextColor = '#666'
+            gGauge.props.showMinorScaleValue = 0;
+            gGauge.props.showGlossiness = 1;
+            gGauge.props.rangeSegments[0].start = '0'
+            gGauge.props.rangeSegments[0].end = '33'
+            gGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            gGauge.props.rangeSegments[1].start = '33'
+            gGauge.props.rangeSegments[1].end = '66'
+            gGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            gGauge.props.rangeSegments[2].start = '66'
+            gGauge.props.rangeSegments[2].end = '100'
+            gGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            gGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            gGauge.props.rimWidth = '4'
+//            gGauge.refresh(15);
+			gGauge.refresh(0);
+
+            var hGauge = new AquaGauge('cauge_07');
+            hGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            hGauge.props.minValue = 0;
+            hGauge.props.maxValue = 100;
+            hGauge.props.noOfDivisions = 5;
+            hGauge.props.noOfSubDivisions = 4;
+            hGauge.props.showMinorScaleValue = true;
+            hGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            hGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            hGauge.props.dialTitle = 'name 8';
+            hGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            hGauge.props.dialTitleTextColor = '#000'
+            hGauge.props.dialSubTitle = 'Score';
+            hGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            hGauge.props.dialSubTitleTextColor = '#666'
+            hGauge.props.dialValueTextFont = '12px Arial Black'
+            hGauge.props.dialValueTextColor = '#333'
+            hGauge.props.majorDivisionColor = '#666'
+            hGauge.props.minorDivisionColor = '#999'
+            hGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            hGauge.props.dialScaleTextColor = '#333'
+            hGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            hGauge.props.dialSubScaleTextColor = '#666'
+            hGauge.props.showMinorScaleValue = 0;
+            hGauge.props.showGlossiness = 1;
+            hGauge.props.rangeSegments[0].start = '0'
+            hGauge.props.rangeSegments[0].end = '33'
+            hGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            hGauge.props.rangeSegments[1].start = '33'
+            hGauge.props.rangeSegments[1].end = '66'
+            hGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            hGauge.props.rangeSegments[2].start = '66'
+            hGauge.props.rangeSegments[2].end = '100'
+            hGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            hGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            hGauge.props.rimWidth = '4'
+//            hGauge.refresh(35);
+			hGauge.refresh(0);
+
+            var iGauge = new AquaGauge('cauge_08');
+            iGauge.props.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+            iGauge.props.minValue = 0;
+            iGauge.props.maxValue = 100;
+            iGauge.props.noOfDivisions = 5;
+            iGauge.props.noOfSubDivisions = 4;
+            iGauge.props.showMinorScaleValue = true;
+            iGauge.props.dialColor = 'rgba(210, 210, 210, 1)'
+            iGauge.props.dialGradientColor = 'rgba(255, 255, 255, 0.5)'
+            iGauge.props.dialTitle = 'name 9';
+            iGauge.props.dialTitleTextFont = 'bold 14px Trebuchet MS'
+            iGauge.props.dialTitleTextColor = '#000'
+            iGauge.props.dialSubTitle = 'Score';
+            iGauge.props.dialSubTitleTextFont = '9px Trebuchet MS'
+            iGauge.props.dialSubTitleTextColor = '#666'
+            iGauge.props.dialValueTextFont = '12px Arial Black'
+            iGauge.props.dialValueTextColor = '#333'
+            iGauge.props.majorDivisionColor = '#666'
+            iGauge.props.minorDivisionColor = '#999'
+            iGauge.props.dialScaleFont = 'bold 8px Trebuchet MS'
+            iGauge.props.dialScaleTextColor = '#333'
+            iGauge.props.dialSubScaleFont = 'bold 0px Trebuchet MS'
+            iGauge.props.dialSubScaleTextColor = '#666'
+            iGauge.props.showMinorScaleValue = 0;
+            iGauge.props.showGlossiness = 1;
+            iGauge.props.rangeSegments[0].start = '0'
+            iGauge.props.rangeSegments[0].end = '33'
+            iGauge.props.rangeSegments[0].color = 'rgba(220, 57, 18, 1)'
+            iGauge.props.rangeSegments[1].start = '33'
+            iGauge.props.rangeSegments[1].end = '66'
+            iGauge.props.rangeSegments[1].color = 'rgba(255, 153, 0, 1)'
+            iGauge.props.rangeSegments[2].start = '66'
+            iGauge.props.rangeSegments[2].end = '100'
+            iGauge.props.rangeSegments[2].color = 'rgba(16, 150, 24, 1)'
+            iGauge.props.rimColor = 'rgba(230, 230, 230, 1)'
+            iGauge.props.rimWidth = '4'
+//            iGauge.refresh(22);8
+			iGauge.refresh(0);
+			
+setTimeout(function() { go(bGauge, 0,22); }, 0);
+setTimeout(function() { go(cGauge, 0,12); }, 4000);
+setTimeout(function() { go(dGauge, 0,22); }, 8000);
+setTimeout(function() { go(eGauge, 0,80); }, 12000);
+setTimeout(function() { go(fGauge, 0,76); }, 16000);
+setTimeout(function() { go(gGauge, 0,15); }, 20000);
+setTimeout(function() { go(hGauge, 0,35); }, 24000);
+setTimeout(function() { go(iGauge, 0,22); }, 28000);
+setTimeout(function() { go(aGauge, 0, 35.75, 1, 2, 4); }, 32000);
+
+ }
+    </script>
+</head>
+<body onload="showGauge()">
+<canvas id="cauge_01" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_02" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_03" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_04" width="113" height="113">Browser not supported.</canvas>
+<br>
+<canvas id="cauge_05" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_06" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_07" width="113" height="113">Browser not supported.</canvas>
+<canvas id="cauge_08" width="113" height="113">Browser not supported.</canvas>
+
+
+
+    <canvas id="cauge_00" width="295" height="295">Browser not supported.</canvas>
+</body>
+</html>
